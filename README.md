@@ -18,3 +18,10 @@ The program takes in user input through the command line, simply put the urls af
 The program utilizes the os/exec golang package, which allows the use of shell commands in our program. Because this code was written on a Mac, it may use some arguments to the ping command that may not exist in Windows or Linux, specifically the -c argument to define how many times to ping.
 
 The code also makes use of go-routines to accomplish the task in parallel. All of the results are printed after the ping has concluded and the program is finished running.
+
+# Resources Used
+
+This code was written with the help of the following resources.
+
+https://gobyexample.com/goroutines
+https://stackoverflow.com/questions/6182369/exec-a-shell-command-in-go
