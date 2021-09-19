@@ -28,5 +28,3 @@ https://gobyexample.com/goroutines
 https://stackoverflow.com/questions/6182369/exec-a-shell-command-in-go
 
 https://gobyexample.com/string-functions
-
-https://gobyexample.com/json
