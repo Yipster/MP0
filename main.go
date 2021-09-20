@@ -87,4 +87,5 @@ func main() {
 	//for _, v := range durationList {
 	//	values = append(values, float64(v))
 	//}
+	//plotGraph(values)
 }
