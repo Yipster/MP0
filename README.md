@@ -23,8 +23,10 @@ The code also makes use of go-routines to accomplish the task in parallel. All o
 
 This code was written with the help of the following resources.
 
-https://gobyexample.com/goroutines
+Finding max parallelism https://gist.github.com/peterhellberg/5848304
 
-https://stackoverflow.com/questions/6182369/exec-a-shell-command-in-go
+Use of goroutines https://gobyexample.com/goroutines
 
-https://gobyexample.com/string-functions
+Using shell commands to run ping https://stackoverflow.com/questions/6182369/exec-a-shell-command-in-go
+
+String functions in go https://gobyexample.com/string-functions
