@@ -1,4 +1,5 @@
-# MP0 - Gary Yip
+# MP0 
+Gary Yip and Gordon Yang
 
 # Goal of the Project
 This project serves as an introduction into using Go. Most importantly, it highlights the use of go channels and go routines to achieve things sychronously and in parallel.
