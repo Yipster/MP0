@@ -43,20 +43,30 @@ func ping(out chan string, urlList []string) {
 
 //parallelizes ping command using go routine
 func main() {
-	maxProcs := maxCPU()
-	runtime.GOMAXPROCS(maxProcs)
 	urlList := os.Args[1:]//list of urls defined by user inputted args
 
 	out := make(chan string, len(urlList))
-	start := time.Now()
 
-	go ping(out, urlList)
 
-	fmt.Println("url/min/avg/max/stddev") //to clarify what the output means
-	for range urlList {
-		fmt.Println(<-out)
+	fmt.Println("GOMAXPROCS max value", maxCPU())
+
+	//this tests runtime of the program with default value of GOMAXPROCS up to max value of GOMAXPROCS
+	gmpMax := maxCPU()
+	var durationList = make(map[int]int64)//list to store and display the duration of the pings according to the value of GOMAXPROCS
+	for i := 0; i <= gmpMax; i++ {
+		fmt.Println("\nTesting GOMAXPROCS value = ", i)
+		fmt.Println("url/min/avg/max/stddev") //to clarify what the output means
+		runtime.GOMAXPROCS(i)
+		start := time.Now()
+		for range urlList {
+			go ping(out, urlList)
+			fmt.Println(<-out)
+		}
+		duration := time.Since(start)
+		durationList[i] = duration.Milliseconds()
+		fmt.Println("time: ", duration)
 	}
+	fmt.Println("\nFinal list of durations in milliseconds for the code according to the value of GOMAXPROCS")
+	fmt.Println(durationList)
 
-	duration := time.Since(start)
-	fmt.Println("time: ", duration)
 }
