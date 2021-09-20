@@ -7,6 +7,9 @@ import (
 	"runtime"
 	"time"
 	s "strings"
+	//"gonum.org/v1/plot"
+	//"gonum.org/v1/plot/plotter"
+	//"gonum.org/v1/plot/vg"
 )
 
 //maxCPU is a functions that finds the highest possible gomaxprocs value by comparing the number of cpus.
@@ -41,6 +44,18 @@ func ping(out chan string, urlList []string) {
 	}
 }
 
+//func plotGraph(values plotter.Values){
+//	p := plot.New()
+//	bar, err := plotter.NewBarChart(values, 8)
+//	if err != nil {
+//		panic(err)
+//	}
+//	p.Add(bar)
+//	if err := p.Save(3*vg.Inch, 3*vg.Inch, "bar.png"); err != nil{
+//		panic(err)
+//	}
+//}
+
 //parallelizes ping command using go routine
 func main() {
 	urlList := os.Args[1:]//list of urls defined by user inputted args
@@ -68,5 +83,8 @@ func main() {
 	}
 	fmt.Println("\nFinal list of durations in milliseconds for the code according to the value of GOMAXPROCS")
 	fmt.Println(durationList)
-
+	//values := make([]float64, 0, len(durationList))
+	//for _, v := range durationList {
+	//	values = append(values, float64(v))
+	//}
 }
