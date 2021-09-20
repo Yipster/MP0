@@ -26,6 +26,8 @@ Below is a screenshot showing a sample output running the program with just one 
 
 ![Screen Shot 2021-09-19 at 9 49 43 PM](https://user-images.githubusercontent.com/70530925/133950626-2fe868d3-03e4-41b1-8129-8afef98b269a.png)
 
+As can be seen from the example output above, with only one argument (google.com) the time needed to ping is pretty much the same regardless of CPU value. However, once we add more websites to ping, it shows a very stark difference.
+
 # Resources Used
 
 This code was written with the help of the following resources.
