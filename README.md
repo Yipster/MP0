@@ -18,7 +18,13 @@ The program takes in user input through the command line, simply put the urls af
 
 The program utilizes the os/exec golang package, which allows the use of shell commands in our program. Because this code was written on a Mac, it may use some arguments to the ping command that may not exist in Windows or Linux, specifically the -c argument to define how many times to ping.
 
-The code also makes use of go-routines to accomplish the task in parallel. All of the results are printed after the ping has concluded and the program is finished running.
+The code makes use of go-routines to accomplish the task in parallel. It will also test how the program performs, by time needed to complete, based on the numbers of CPU as determined by the GOMAXPROCS value. It will iterate from GOMAXPROCS(1) all the way to the max value.
+
+At the end, the code will display a list that shows the durations calculated over the whole program, the durations are calculated in milliseconds.
+
+Below is a screenshot showing a sample output running the program with just one argument.
+
+![Screen Shot 2021-09-19 at 9 49 43 PM](https://user-images.githubusercontent.com/70530925/133950626-2fe868d3-03e4-41b1-8129-8afef98b269a.png)
 
 # Resources Used
 
