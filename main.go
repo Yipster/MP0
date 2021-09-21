@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"time"
 	s "strings"
-	//"gonum.org/v1/plot"
-	//"gonum.org/v1/plot/plotter"
-	//"gonum.org/v1/plot/vg"
+	"gonum.org/v1/plot"
+	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/vg"
 )
 
 //maxCPU is a functions that finds the highest possible gomaxprocs value by comparing the number of cpus.
@@ -44,24 +44,24 @@ func ping(out chan string, urlList []string) {
 	}
 }
 
-//func plotGraph(values plotter.Values){
-//	p := plot.New()
-//	bar, err := plotter.NewBarChart(values, 8)
-//	if err != nil {
-//		panic(err)
-//	}
-//	p.Add(bar)
-//	if err := p.Save(3*vg.Inch, 3*vg.Inch, "bar.png"); err != nil{
-//		panic(err)
-//	}
-//}
+func plotGraph(values plotter.XYs){
+	p := plot.New()
+	p.Add(plotter.NewGrid())
+	s, err := plotter.NewScatter(values)
+	if err != nil{
+		panic(err)
+	}
+	p.Add(s)
+	if err := p.Save(3*vg.Inch, 3*vg.Inch, "graph.png"); err != nil{
+		panic(err)
+	}
+}
 
 //parallelizes ping command using go routine
 func main() {
 	urlList := os.Args[1:]//list of urls defined by user inputted args
 
 	out := make(chan string, len(urlList))
-
 
 	fmt.Println("GOMAXPROCS max value", maxCPU())
 
@@ -75,7 +75,6 @@ func main() {
 		start := time.Now()
 		for range urlList {
 			go ping(out, urlList)
-			fmt.Println(<-out)
 		}
 		duration := time.Since(start)
 		durationList[i] = duration.Milliseconds()
@@ -83,9 +82,13 @@ func main() {
 	}
 	fmt.Println("\nFinal list of durations in milliseconds for the code according to the value of GOMAXPROCS")
 	fmt.Println(durationList)
-	//values := make([]float64, 0, len(durationList))
-	//for _, v := range durationList {
-	//	values = append(values, float64(v))
-	//}
-	//plotGraph(values)
+	values := make(plotter.XYs, len(durationList))
+	var i = 0
+	for k, v := range durationList {
+		values[i].X = float64(k)
+		values[i].Y = float64(v)
+		fmt.Println(values[i])
+		i++
+	}
+	plotGraph(values)
 }
