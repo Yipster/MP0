@@ -44,14 +44,20 @@ func ping(out chan string, urlList []string) {
 	}
 }
 
+//generates a scatter plot from the values given by XY pairs
 func plotGraph(values plotter.XYs){
+	//defining a new plot using the gonum package
 	p := plot.New()
 	p.Add(plotter.NewGrid())
+
+	//plotting of the values into a scatter plot
 	s, err := plotter.NewScatter(values)
 	if err != nil{
 		panic(err)
 	}
 	p.Add(s)
+
+	//saves the image of the plot as a png to the local folder
 	if err := p.Save(3*vg.Inch, 3*vg.Inch, "graph.png"); err != nil{
 		panic(err)
 	}
@@ -82,8 +88,10 @@ func main() {
 	}
 	fmt.Println("\nFinal list of durations in milliseconds for the code according to the value of GOMAXPROCS")
 	fmt.Println(durationList)
+	// creating a list of XY pairs to feed as data points into the scatter plot
 	values := make(plotter.XYs, len(durationList))
 	var i = 0
+	// separating the key-value pairs into XY pairs from durationList
 	for k, v := range durationList {
 		values[i].X = float64(k)
 		values[i].Y = float64(v)

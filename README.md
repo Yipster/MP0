@@ -1,4 +1,4 @@
-# MP0 
+# MP0
 Gary Yip and Gordon Yang
 
 # Goal of the Project
@@ -30,6 +30,8 @@ Below is a screenshot showing a sample output running the program with just one 
 
 As can be seen from the example output above, with only one argument (google.com) the time needed to ping is pretty much the same regardless of CPU value. However, once we add more websites to ping, it shows a very stark difference.
 
+Below is a scatter plot of the GOMAXPROCS # as the x-axis, and the runtime in milliseconds as the y-axis. We make use of the gonum package for golang, which allows us to generate an image of a plot based on (x,y) inputs.
+
 # Resources Used
 
 This code was written with the help of the following resources.
@@ -41,3 +43,5 @@ Use of goroutines https://gobyexample.com/goroutines
 Using shell commands to run ping https://stackoverflow.com/questions/6182369/exec-a-shell-command-in-go
 
 String functions in go https://gobyexample.com/string-functions
+
+Generating graphs in go https://github.com/gonum/gonum
