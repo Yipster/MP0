@@ -6,7 +6,6 @@ import (
 	"os/exec"
 	"runtime"
 	"time"
-	s "strings"
 	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
 	"gonum.org/v1/plot/vg"
@@ -36,9 +35,7 @@ func ping(out chan string, urlList []string) {
 			if err != nil {
 				fmt.Println(err.Error())
 			} else {
-				indexOfStats := s.Index(string(result), " = ") //this piece of code finds where the stats are within the output of using ping
-				stats := tempUrl + "/" + string(result[indexOfStats+3:])
-				out <- stats
+				out <- string(result)
 			}
 		}(i)
 	}
@@ -76,17 +73,16 @@ func main() {
 	var durationList = make(map[int]int64)//list to store and display the duration of the pings according to the value of GOMAXPROCS
 	for i := 0; i <= gmpMax; i++ {
 		fmt.Println("\nTesting GOMAXPROCS value = ", i)
-		fmt.Println("url/min/avg/max/stddev") //to clarify what the output means
 		runtime.GOMAXPROCS(i)
 		start := time.Now()
 		for range urlList {
 			go ping(out, urlList)
 		}
 		duration := time.Since(start)
-		durationList[i] = duration.Milliseconds()
+		durationList[i] = duration.Microseconds()
 		fmt.Println("time: ", duration)
 	}
-	fmt.Println("\nFinal list of durations in milliseconds for the code according to the value of GOMAXPROCS")
+	fmt.Println("\nFinal list of durations in microseconds for the code according to the value of GOMAXPROCS")
 	fmt.Println(durationList)
 	// creating a list of XY pairs to feed as data points into the scatter plot
 	values := make(plotter.XYs, len(durationList))
